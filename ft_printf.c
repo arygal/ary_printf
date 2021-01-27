@@ -43,10 +43,10 @@ static  int     proc_line(va_list   arg, const char *line)
                 if (ft_strchr("cspdiuxX%", line[pos]))
                     ret = ret + conversion_parse(&flag, arg);
                 else if (line[pos] != '\0')
-                    ret = ret + write(1, line[pos], 1);
+                    ret = ret + write(1, &line[pos], 1);
             }
         else
-           ret = ret + write(1, line[pos], 1);
+           ret = ret + write(1, &line[pos], 1);
         ++pos;
     }
     return(ret);
@@ -69,4 +69,3 @@ int ft_printf(const char *line, ...)
  //   free(temp);
     return(ret);
 }
-

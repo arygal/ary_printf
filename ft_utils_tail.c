@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-int				hex_to_str(unsigned int hex, int ct)
+char			*hex_to_str(unsigned int hex, int ct)
 {
 	unsigned int		hex2;
 	char				*ret;
@@ -78,9 +78,9 @@ int				conv_to_per(t_flag *flag)
 
 	ret = 1;
 	if (flag->minus == 1)
-		write (1, '%', 1);
+		write (1, "%", 1);
 	ret = ret + prec_proc(flag->zero, 1 , flag->width);
 	if (flag->minus == 0)
-		write (1, '%', 1);
+		write (1, "%", 1);
 	return(ret);
 }

@@ -15,8 +15,21 @@
 
 #include <stdarg.h>
 #include <stdlib.h>
+#include <unistd.h>
+
+typedef struct  s_flag
+{
+    int		    minus;
+    int		    zero;
+    int		    prec;
+	int		    star;
+	int		    width;
+	int		    type;
+}               t_flag;
 /* stdlib for size_t */
 
+int             ft_printf(const char *, ...);
+int             conversion_parse(t_flag *flag, va_list arg);
 char			*ft_strdup(const char *s1);
 char			*ft_strchr(const char *s, int c);
 int				flag_parse(t_flag *flag, const char *line, int pos, va_list arg);
@@ -33,19 +46,9 @@ int				conv_to_uns_int(unsigned int i, t_flag *falg);
 char			*ft_uitoa(unsigned int n);
 int				uns_int_proc(char *ptr,t_flag *flag, int len);
 int				conv_to_hex(unsigned int hex, t_flag *flag, int c);
-int				hex_to_str(unsigned int hex, int ct);
+char			*hex_to_str(unsigned int hex, int ct);
 int				ft_toupper(int c);
-int				hex_proc(char *ptr, t_flag flag, int len);
+int				hex_proc(char *ptr, t_flag  *flag, int len);
 int				conv_to_per(t_flag *flag);
-
-typedef struct s_flag
-{
-    int		minus;
-    int		zero;
-    int		prec;
-	int		star;
-	int		width;
-	int		type;
-} t_flag;
 
 #endif 

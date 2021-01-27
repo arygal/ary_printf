@@ -18,7 +18,7 @@ static int	int_print(char *ptr, t_flag *flag, int i, int len)
 
 	ret = 0;
 	if (i < 0 && flag->prec >= 0)
-		write(1, '-', 1);
+		write(1, "-", 1);
 	if (flag->prec >= 0)
 		ret =  ret + prec_proc(1, len - 1, flag->prec - 1);
 	ret = ret + str_print(len, ptr);
@@ -61,7 +61,7 @@ char			*ft_uitoa(unsigned int n)
 		nclone = nclone / 10;
 		size++;
 	}
-	if (n = 0)
+	if (n == 0)
 		size++;
 	if (!(ret = malloc(size + 1)))
 		return ((void *)0);

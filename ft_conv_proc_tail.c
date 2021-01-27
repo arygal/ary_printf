@@ -38,6 +38,7 @@ int		conv_to_hex(unsigned int hex, t_flag *flag, int c)
 	int		ct;
 	int		len;
 
+	ct = 0;
 	ret = 0;
 	//hex = (unsigned int)(4294967295 + 1 + hex); //dunno
 	if (flag->prec == 0 && hex == 0)

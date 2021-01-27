@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_conv_poc_head.c                                 :+:      :+:    :+:   */
+/*   ft_conv_porc_head.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: megen <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -18,10 +18,10 @@ static int		conv_to_c(char c, t_flag *flag)
 
 	ret = 0;
 	if (flag->minus == 1)
-		write(1, c, 1);
+		write(1, &c, 1);
 	ret = prec_proc(0, 1, flag->prec) + 1;
 	if (flag->minus == 0)
-		write(1, c, 1);
+		write(1, &c, 1);
 	return (ret);
 }
 
@@ -54,12 +54,12 @@ static int		conv_to_ptr(unsigned long long targ, t_flag *flag)
 	int		ct;
 	int		len;
 
+	ct = 0;
 	ret = 0;
 	if (targ == 0 && flag->prec == 0)
 		{
-			str_print("0x", 2);
-			ret = prec_proc(1, 0, flag->width);
-			return(ret + 2);
+			write(1, "0x", 2);
+			return(prec_proc(1, 0, flag->width) + 2);
 		}
 	ptr = ptr_proc(targ, ct);
 	if(!ptr)
@@ -90,7 +90,7 @@ static int		conv_to_int(int i, t_flag *flag)
 	if (i < 0 && (flag->zero == 1 || flag->prec >= 0))
 	{
 		if (flag->zero == 1 && flag->prec ==-1)
-			write(1, '-' ,1);
+			write(1, "-" ,1);
 		flag->zero = 1;
 		--flag->width;
 		++ret;
