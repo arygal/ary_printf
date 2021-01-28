@@ -6,7 +6,7 @@
 /*   By: megen <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 01:52:54 by megen             #+#    #+#             */
-/*   Updated: 2021/01/27 23:30:44 by megen            ###   ########.fr       */
+/*   Updated: 2021/01/28 13:42:23 by megen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,9 @@ int  flag_parse(t_flag *flag, const char *line, int pos, va_list arg)
 	{
 		if (!ft_strchr(specifier, line[pos])) /// printf ("asdas%-.0bvbvbv")
 			return(pos);
-		else if (line[pos] == '0' && flag->minus == 0 & flag->width == 0)
+		if (line[pos] == '0' && flag->minus == 0 & flag->width == 0)
 			flag->zero = 1;
-		else if (line[pos] == '.')
+		if (line[pos] == '.')
 			pos = flag_dot(flag, line, pos, arg); /// TODO: CHEK IF IT CORRECT
 		if (line[pos] == '-')
 			flag = flag_minus(flag);
@@ -77,9 +77,8 @@ int  flag_parse(t_flag *flag, const char *line, int pos, va_list arg)
 			flag = flag_digit(line[pos], flag);
 		else
 		{
-			specifier += 13;
-			flag->type = (int)*ft_strchr(specifier, line[pos]); ///cspdiuxX%
-			specifier -= 13;
+			flag->type = (int)*ft_strchr(specifier + 13, line[pos]); ///cspdiuxX%
+			return(pos);
 		}
 		++pos;
 	}

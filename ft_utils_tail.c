@@ -26,13 +26,13 @@ char			*hex_to_str(unsigned int hex, int ct)
 		hex = hex / 16;
 		++ct;
 	}
-	ret = malloc (1 + ct);
+	ret = malloc(1 + ct);
 	if (!ret)
 		return(0);
 	ret[ct--] = '\0';
 	while (hex2 != 0)
 	{
-		if ((hex2 % 16) < 16)
+		if ((hex2 % 16) < 10)
 			ret[ct] = (hex2 % 16) + 48;
 		else
 			ret[ct--] = (hex2 % 16) + 87;
