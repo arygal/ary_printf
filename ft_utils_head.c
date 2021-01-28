@@ -65,17 +65,17 @@ char	*ptr_proc(unsigned long long hex,int ct)
 		hex = hex / 16;
 		++ct;
 	}
-	ret = malloc (1 + ct);
-	if (!ret)
+	if (!(ret = malloc (1 + ct)))
 		return(NULL);
 	ret[ct--] = '\0';
 	while (hex2 != 0)
 	{
 		if ((hex2 % 16) < 10)
-			ret[ct] = (hex2 % 16) + 48;
+			ret[ct] = hex2 % 16 + 48;
 		else
-			ret[ct--] = (hex2 % 16) + 87;
+			ret[ct] = hex2 % 16 + 87;
 		hex2 = hex2 / 16;
+		--ct;
 	}
 	return (ret);
 }
