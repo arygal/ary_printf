@@ -26,7 +26,6 @@ typedef struct  s_flag
 	int		    width;
 	int		    type;
 }               t_flag;
-/* stdlib for size_t */
 
 int             ft_printf(const char *, ...);
 int             conversion_parse(t_flag *flag, va_list arg);

@@ -23,7 +23,9 @@ static int	flag_prec (t_flag *flag, const char* line, int pos, va_list arg)
 	{
 		flag->prec = 0;
 		while (line[pos] > 47 && line[pos] < 58 ) 
-			flag->prec = flag->prec * 10 + (line[pos++] - 48);		
+			flag->prec = flag->prec * 10 + (line[pos++] - 48);
+		if (ft_strchr("cspdiuxX%", line[pos]) == NULL)
+			--pos;		
 	}
 	return(pos);
 }
@@ -43,6 +45,7 @@ static t_flag	*flag_star(t_flag *flag, va_list arg)
 	{
 		flag->width = flag->width * -1;
 		flag->minus = 1;
+		flag->zero = 0;
 	}
 	return(flag);
 }
