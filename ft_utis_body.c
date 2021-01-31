@@ -12,41 +12,59 @@
 
 #include "ft_printf.h"
 
-static int	int_print(char *ptr, t_flag *flag, int i, int len)
+// static int	int_print(char *ptr, t_flag *flag, int len, int i)
+// {
+// 	int		ret;
+
+// 	ret = 0;
+// 	if (i < 0)
+// 	{
+// 		ret = write(1, "-", 1);
+// 	}
+// 	if (flag->prec >= 0)
+// 		ret =  ret + prec_proc(1, len - 1 , flag->prec - 1);
+// 	ret = ret + str_print(len, ptr);
+// 	return(ret);
+// }
+
+int		int_proc(char *ptr, t_flag *flag, int i, int len )
 {
 	int		ret;
+	int		spccnt;
 
+	if (i == 0 && flag->prec == 0)
+		return(prec_proc(0, 0, flag->width));
 	ret = 0;
-	if (i < 0 && flag->prec >= 0)
-		write(1, "-", 1);
-	if (flag->prec >= 0)
-		ret =  ret + prec_proc(1, len - 1, flag->prec - 1);
-	ret = ret + str_print(len, ptr);
-	return(ret);
-}
-
-int		int_proc(char *ptr, t_flag *flag, int i)
-{
-	int		ret;
-	int		len;
-
-	len = (int)ft_strlen(ptr);
-	ret = 0;
-	if (flag->minus == 1)
-		ret = int_print(ptr, flag, i, len);
-	if (flag->prec >= 0 && flag->prec < len)
-		flag->prec = len;
-	if (flag->prec >= 0)
-	{
-		flag->width = flag->width - flag->prec;
-		ret = ret + prec_proc(0, 0, flag->width);
-	}
-	else
-		ret = ret +	prec_proc(flag->zero, len, flag->width);
+	
+	spccnt = flag->width - (((len >= flag->prec) * len) + ((flag->prec > len) * flag->prec)) - (i < 0);
 	if (flag->minus == 0)
-		ret = ret + int_print(ptr, flag, i, len);
-	return(ret);
+		ret = ret + prec_proc(0, 0, spccnt * !(flag->zero && flag->prec < 0)); // spaaaace
+	if (i < 0)
+		ret = write(1, "-", 1);
+	if (flag->prec >= 0 || flag->zero > 0)
+		ret = ret + prec_proc(1, 0, (flag->prec - len) * !(flag->zero && flag->prec < 0) + (flag->width - len - (i < 0)) * (flag->zero && flag->prec < 0));  /// Zero
+	ret = ret + str_print(len, ptr);
+	if (flag->minus == 1)
+		ret = ret + prec_proc(0, 0, spccnt * !(flag->zero && flag->prec < 0));  ///space created
+	return (ret);
 }
+
+
+
+	// if (flag->minus == 1)
+	// 	ret = int_print(ptr, flag, len, i);
+	// // if (flag->prec >= 0 && flag->prec < len)
+	// // 	flag->prec = len;
+	// if (flag->prec >= 0)
+	// {
+	// 	flag->width = flag->width - flag->prec;
+	// 	ret = ret + prec_proc(0, 0, flag->width);
+	// }
+	// else
+	// 	ret = ret +	prec_proc(flag->zero, len, flag->width);
+	// if (flag->minus == 0)
+	// 	ret = ret + int_print(ptr, flag, len, i);
+
 
 char			*ft_uitoa(unsigned int n)
 {

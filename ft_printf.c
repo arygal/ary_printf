@@ -59,6 +59,7 @@ int ft_printf(const char *line, ...)
  //   const char  *temp;
 
     ret = 0;
+    
  //   temp = ft_strdup(line);
   //  if (!temp)
   //      return(NULL);

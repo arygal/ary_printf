@@ -49,7 +49,7 @@ int		conv_to_hex(unsigned int hex, t_flag *flag, int c)
 	len =(int)ft_strlen(ptr);
 	ct = len;
 	if (c == 1)
-		while (--ct > 0)
+		while (ct-- > 0)
 			ptr[ct] = ft_toupper(ptr[ct]);
 	ret = hex_proc(ptr, flag, len);
 	free(ptr);

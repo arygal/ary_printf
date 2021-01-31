@@ -19,7 +19,7 @@ static int		conv_to_c(char c, t_flag *flag)
 	ret = 0;
 	if (flag->minus == 1)
 		write(1, &c, 1);
-	ret = prec_proc(0, 1, flag->prec) + 1;
+	ret = prec_proc(0, 1, flag->width) + 1;
 	if (flag->minus == 0)
 		write(1, &c, 1);
 	return (ret);
@@ -57,10 +57,7 @@ static int		conv_to_ptr(unsigned long long targ, t_flag *flag)
 	ct = 0;
 	ret = 0;
 	if (targ == 0 && flag->prec == 0)
-		{
-			write(1, "0x", 2);
-			return(prec_proc(1, 0, flag->width) + 2);
-		}
+			return(write(1, "0x", 2) + prec_proc(1, 0, flag->width));
 	ptr = ptr_proc(targ, ct);
 	if(!ptr)
 		return(ret);
@@ -78,27 +75,28 @@ static int		conv_to_ptr(unsigned long long targ, t_flag *flag)
 
 static int		conv_to_int(int i, t_flag *flag)
 {
-	char	*ptr;
-	int		i2;
-	int		ret;
+	char			*ptr;
+	long int		i2;
+	int				ret;
+	int				len;
 
 	i2 = i;
 	ret = 0;
-	
-	if (i == 0 && flag->prec == 0)
-		return(prec_proc(0, 0, flag->width));
-	if (i < 0 && (flag->zero == 1 || flag->prec >= 0))
-	{
-		if (flag->zero == 1 && flag->prec ==-1)
-			write(1, "-" ,1);
-		flag->zero = 1;
-		--flag->width;
-		++ret;
-	}
-	ptr = ft_itoa(i);
+	// if ((flag->zero == 1 || flag->prec < 0) && i < 0 )
+	// 	{
+	// 		if (flag->prec < 0 && flag->zero == 1)
+	// 			ret = write(1, "-", 1);
+	// 		//flag->zero = 1;
+	// 		i2 = i2 * -1;
+	// 		--flag->width;
+	// 	}
+	if (i2 < 0)
+		i2 = i2 * -1;
+	ptr = ft_itoa(i2);
 	if (!ptr)
 		return(ret);
-	ret = ret + int_proc(ptr, flag, i2);
+	len = ft_strlen(ptr);
+	ret = int_proc(ptr, flag, i, len);
 	free(ptr);
 	return(ret);
 }

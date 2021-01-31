@@ -43,7 +43,7 @@ static	char	*ft_itoa_charset(char *ret, long int nclone, int size)
 	return (ret);
 }
 
-char			*ft_itoa(int n)
+char			*ft_itoa(long int n)
 {
 	long int	nclone;
 	int			size;
