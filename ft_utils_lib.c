@@ -6,15 +6,15 @@
 /*   By: megen <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 23:46:21 by megen             #+#    #+#             */
-/*   Updated: 2021/01/27 23:53:25 by megen            ###   ########.fr       */
+/*   Updated: 2021/01/31 17:10:35 by megen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-size_t	ft_strlen(const char *s)
+size_t			ft_strlen(const char *s)
 {
-	size_t a;
+	size_t		a;
 
 	a = 0;
 	while (s[a] != '\0')
@@ -22,7 +22,7 @@ size_t	ft_strlen(const char *s)
 	return (a);
 }
 
-char	*ft_strchr(const char *s, int c)
+char			*ft_strchr(const char *s, int c)
 {
 	while (*s != c)
 	{
@@ -30,10 +30,10 @@ char	*ft_strchr(const char *s, int c)
 			return ((void *)0);
 		s++;
 	}
-	return ((char*)s);
+	return ((char *)s);
 }
 
-static	char	*ft_itoa_charset(char *ret, long int nclone, int size)
+static char		*ft_itoa_charset(char *ret, long int nclone, int size)
 {
 	while (size >= 0)
 	{
@@ -74,8 +74,8 @@ char			*ft_itoa(long int n)
 
 char			*ft_strdup(const char *s1)
 {
-	int		lenchar;
-	char	*malchar;
+	int			lenchar;
+	char		*malchar;
 
 	lenchar = ft_strlen(s1);
 	malchar = malloc(lenchar + 1);
@@ -87,11 +87,4 @@ char			*ft_strdup(const char *s1)
 		--lenchar;
 	}
 	return (malchar);
-}
-
-int	ft_toupper(int c)
-{
-	if (c > 96 && c < 123)
-		return (c - 32);
-	return (c);
 }

@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_conv_porc_head.c                                :+:      :+:    :+:   */
+/*   ft_conv_proc_head.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: megen <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/27 20:30:02 by megen             #+#    #+#             */
-/*   Updated: 2021/01/27 20:30:03 by megen            ###   ########.fr       */
+/*   Created: 2021/01/31 16:36:31 by megen             #+#    #+#             */
+/*   Updated: 2021/01/31 16:36:36 by megen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static int		conv_to_c(char c, t_flag *flag)
+static int	conv_to_c(char c, t_flag *flag)
 {
-	int ret;
+	int		ret;
 
 	ret = 0;
 	if (flag->minus == 1)
@@ -25,10 +25,10 @@ static int		conv_to_c(char c, t_flag *flag)
 	return (ret);
 }
 
-static int		conv_to_str(char *line, t_flag *flag)
+static int	conv_to_str(char *line, t_flag *flag)
 {
-	int ret;
-	int len;
+	int		ret;
+	int		len;
 
 	ret = 0;
 	if (!line)
@@ -44,10 +44,10 @@ static int		conv_to_str(char *line, t_flag *flag)
 		ret = ret + prec_proc(0, len, flag->width);
 	if (flag->minus == 0)
 		ret = ret + prec_print(line, flag, len);
-	return(ret);
+	return (ret);
 }
 
-static int		conv_to_ptr(unsigned long long targ, t_flag *flag)
+static int	conv_to_ptr(unsigned long long targ, t_flag *flag)
 {
 	char	*ptr;
 	int		ret;
@@ -57,53 +57,45 @@ static int		conv_to_ptr(unsigned long long targ, t_flag *flag)
 	ct = 0;
 	ret = 0;
 	if (targ == 0 && flag->prec == 0)
-			return(write(1, "0x", 2) + prec_proc(1, 0, flag->width));
+		return (write(1, "0x", 2) + prec_proc(1, 0, flag->width));
 	ptr = ptr_proc(targ, ct);
-	if(!ptr)
-		return(ret);
+	if (!ptr)
+		return (ret);
 	len = (int)ft_strlen(ptr);
 	if (flag->prec < len)
 		flag->prec = len;
 	if (flag->minus == 1)
-		ret = ptr_print (ptr, flag, len);
+		ret = ptr_print(ptr, flag, len);
 	ret = ret + prec_proc(0, 2 + len, flag->width);
 	if (flag->minus == 0)
-		ret = ret + ptr_print (ptr, flag, len);
+		ret = ret + ptr_print(ptr, flag, len);
 	free(ptr);
-	return(ret);
+	return (ret);
 }
 
-static int		conv_to_int(int i, t_flag *flag)
+static int	conv_to_int(int i, t_flag *flag)
 {
-	char			*ptr;
-	long int		i2;
-	int				ret;
-	int				len;
+	char		*ptr;
+	long int	i2;
+	int			ret;
+	int			len;
 
 	i2 = i;
 	ret = 0;
-	// if ((flag->zero == 1 || flag->prec < 0) && i < 0 )
-	// 	{
-	// 		if (flag->prec < 0 && flag->zero == 1)
-	// 			ret = write(1, "-", 1);
-	// 		//flag->zero = 1;
-	// 		i2 = i2 * -1;
-	// 		--flag->width;
-	// 	}
 	if (i2 < 0)
 		i2 = i2 * -1;
 	ptr = ft_itoa(i2);
 	if (!ptr)
-		return(ret);
+		return (ret);
 	len = ft_strlen(ptr);
 	ret = int_proc(ptr, flag, i, len);
 	free(ptr);
-	return(ret);
+	return (ret);
 }
 
-int 			conversion_parse(t_flag *flag, va_list arg)
+int			conversion_parse(t_flag *flag, va_list arg)
 {
-	int		ret; //cspdiuxX%
+	int		ret;
 
 	ret = 0;
 	if (flag->type == 'c')

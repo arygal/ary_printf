@@ -6,7 +6,7 @@
 /*   By: megen <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 22:22:25 by megen             #+#    #+#             */
-/*   Updated: 2021/01/27 23:29:57 by megen            ###   ########.fr       */
+/*   Updated: 2021/01/31 17:12:06 by megen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,14 @@ char			*hex_to_str(unsigned int hex, int ct)
 	hex2 = hex;
 	ct = 0;
 	if (hex == 0)
-		return(ft_strdup("0"));
+		return (ft_strdup("0"));
 	while (hex != 0)
 	{
 		hex = hex / 16;
 		++ct;
 	}
 	if (!(ret = malloc(1 + ct)))
-		return(0);
+		return (0);
 	ret[ct--] = '\0';
 	while (hex2 != 0)
 	{
@@ -48,7 +48,7 @@ static	int		hex_print(char *ptr, t_flag *flag, int len)
 	ret = 0;
 	if (flag->prec >= 0)
 		ret = prec_proc(1, len - 1, flag->prec - 1);
-	return(ret + str_print(len, ptr));
+	return (ret + str_print(len, ptr));
 }
 
 int				hex_proc(char *ptr, t_flag *flag, int len)
@@ -69,7 +69,7 @@ int				hex_proc(char *ptr, t_flag *flag, int len)
 		ret = ret + prec_proc(flag->zero, len, flag->width);
 	if (flag->minus == 0)
 		ret = ret + hex_print(ptr, flag, len);
-	return(ret);
+	return (ret);
 }
 
 int				conv_to_per(t_flag *flag)
@@ -78,9 +78,9 @@ int				conv_to_per(t_flag *flag)
 
 	ret = 1;
 	if (flag->minus == 1)
-		write (1, "%", 1);
-	ret = ret + prec_proc(flag->zero, 1 , flag->width);
+		write(1, "%", 1);
+	ret = ret + prec_proc(flag->zero, 1, flag->width);
 	if (flag->minus == 0)
-		write (1, "%", 1);
-	return(ret);
+		write(1, "%", 1);
+	return (ret);
 }
